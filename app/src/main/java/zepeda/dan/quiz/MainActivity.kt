@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.InputBinding
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
 import zepeda.dan.quiz.databinding.ActivityMainBinding
 private const val TAG = "MainActivity"
@@ -16,43 +17,25 @@ private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    private val bancoPreguntas=listOf(
-        preguntas(R.string.pregunta_lapuertanegra,true),
-        preguntas(R.string.pregunta_chuy_mau,false),
-        preguntas(R.string.pregunta_jgl,false),
-        preguntas(R.string.pregunta_elnumero1,false),
-        preguntas(R.string.los_sanguinarios,false)
+    private val quizViewModel: QuizViewModel by viewModels()
 
-        )
-    private var Indice=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate Called")
-        //setContentView(R.layout.activity_main)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.d(TAG, "Tengo un view model: $quizViewModel")
 
 
         binding.trueButtom.setOnClickListener { view: View ->
-            /*val mySnackbar=Snackbar.make(view,R.string.incorrect_toast,Snackbar.LENGTH_LONG)
-            mySnackbar.setBackgroundTint(resources.getColor(R.color.verde))
-            mySnackbar.show()*/
             checkAnswer(true,view)
         }
         binding.falseButtom.setOnClickListener { view: View ->
-            /*Toast.makeText(
-                this,
-                R.string.incorrect_toast,
-                Toast.LENGTH_SHORT
-            ).show()*/
-            /*val mySnackbar=Snackbar.make(view,R.string.incorrect_toast,Snackbar.LENGTH_LONG)
-            mySnackbar.setBackgroundTint(resources.getColor(R.color.naranja))
-            mySnackbar.show()*/
             checkAnswer(false,view)
         }
 
         binding.nextButton.setOnClickListener { view: View ->
-            Indice = (Indice + 1) % bancoPreguntas.size
+            quizViewModel.moveToNext()
             updateQuestion()
         }
         updateQuestion()
@@ -78,12 +61,12 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "onDestroy() called")
     }
     private fun updateQuestion() {
-        val preguntaTextResId=bancoPreguntas[Indice].TextoPregunta
+        val preguntaTextResId = quizViewModel.currentQuestionText
         binding.questionText.setText(preguntaTextResId)
     }
 
     private fun checkAnswer(userAnswer: Boolean,view:View) {
-        val correctAnswer = bancoPreguntas[Indice].respuesta
+        val correctAnswer = quizViewModel.currentQuestionAnswer
         val messageResId = if (userAnswer == correctAnswer) {
             R.string.correct_toast
         } else {
