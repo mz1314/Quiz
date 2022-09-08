@@ -2,6 +2,7 @@ package zepeda.dan.quiz
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputBinding
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import zepeda.dan.quiz.databinding.ActivityMainBinding
+private const val TAG = "MainActivity"
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,11 +18,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private val bancoPreguntas=listOf(
         preguntas(R.string.pregunta_lapuertanegra,true),
-        preguntas(R.string.pregunta_chuy_mau,false)
+        preguntas(R.string.pregunta_chuy_mau,false),
+        preguntas(R.string.pregunta_jgl,false),
+        preguntas(R.string.pregunta_elnumero1,false),
+        preguntas(R.string.los_sanguinarios,false)
+
         )
     private var Indice=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate(Bundle?) called")
         //setContentView(R.layout.activity_main)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -49,6 +56,26 @@ class MainActivity : AppCompatActivity() {
             updateQuestion()
         }
         updateQuestion()
+    }
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart() called")
+    }
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy() called")
     }
     private fun updateQuestion() {
         val preguntaTextResId=bancoPreguntas[Indice].TextoPregunta
