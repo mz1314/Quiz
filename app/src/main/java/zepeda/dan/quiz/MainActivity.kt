@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private var Indice=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate called")
+        Log.d(TAG, "onCreate Called")
         //setContentView(R.layout.activity_main)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
