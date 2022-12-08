@@ -13,7 +13,26 @@ class QuizViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
         preguntas(R.string.pregunta_chuy_mau,false),
         preguntas(R.string.pregunta_jgl,false),
         preguntas(R.string.pregunta_elnumero1,false),
-        preguntas(R.string.los_sanguinarios,false)
+        preguntas(R.string.los_sanguinarios,false),
+        preguntas(R.string.el_solnoregresa,false),
+        preguntas(R.string.redred,false),
+        preguntas(R.string.elsol,true),
+        preguntas(R.string.sentimental,true),
+        preguntas(R.string.botellatras,true),
+        preguntas(R.string.sobrio,true),
+        preguntas(R.string.rojo,false),
+        preguntas(R.string.tacones,false),
+        preguntas(R.string.curiosidad,true),
+        preguntas(R.string.raiz,true)
+
+
+
+
+
+
+
+
+
 
     )
 
